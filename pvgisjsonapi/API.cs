@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Float;
 using Newtonsoft.Json;
 
@@ -92,6 +93,27 @@ namespace pvgisjsonapi {
                 new PostResponse {
                     message = "Unable to query PVGIS for info. Try again later."
                 });
+        }
+
+        /// <summary>
+        /// Serve the front page.
+        /// </summary>
+        public static FloatRouteResponse ServeFrontpage(FloatRouteContext ctx) {
+            var html = Cacher.Get("Frontpage", () => {
+                var file = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "index.html");
+
+                return File.Exists(file)
+                    ? File.ReadAllText(file)
+                    : null;
+            });
+
+            if (string.IsNullOrWhiteSpace(html)) {
+                throw new FloatRouteException(404);
+            }
+
+            return new FloatRouteHtmlResponse(html);
         }
 
         #region Helper Classes

@@ -15,4 +15,7 @@
   <ItemGroup>
     <None Include="web.config" CopyToPublishDirectory="Always" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="index.html" CopyToPublishDirectory="Always" />
+  </ItemGroup>
 </Project>
