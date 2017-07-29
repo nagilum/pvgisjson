@@ -1,3 +1,6 @@
 .vs/
+deploy/
 pvgisjsonapi/bin/
 pvgisjsonapi/obj/
+pvgisjsonapi/site/
+miniserve-webpage/build/index.html
