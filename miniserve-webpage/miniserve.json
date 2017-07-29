@@ -11,18 +11,8 @@
       ]
     },
     {
-      "tagName": "js",
-      "type": "js",
-      "minify": true,
-      "sourceFiles": [
-        "source/js/libs/jk/jk.js",
-        "source/js/app.js"
-      ]
-    },
-    {
       "tagName": "html",
       "type": "html",
-      "minify": true,
       "sourceFiles": [
         "source/html/index.html"
       ],

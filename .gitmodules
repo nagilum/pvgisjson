@@ -1,6 +1,3 @@
 [submodule "pvgisjsonapi/float"]
 	path = pvgisjsonapi/float
 	url = https://github.com/nagilum/float
-[submodule "miniserve-webpage/source/js/libs/jk"]
-	path = miniserve-webpage/source/js/libs/jk
-	url = https://github.com/nagilum/jk
