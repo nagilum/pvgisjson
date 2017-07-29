@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Float;
 using Microsoft.AspNetCore.Hosting;
 
-namespace pvgisjsonapi
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+namespace pvgisjsonapi {
+    public class Program {
+        public static void Main(string[] args) {
+            // Get PV values for given location.
+            FloatEngine.RegisterRouteFunction("api/v1/pv", FloatHttpMethod.POST, API.GetPVValue);
+
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
+                .UseStartup<FloatEngine>()
                 .Build();
 
             host.Run();
