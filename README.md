@@ -8,4 +8,4 @@ That's where this website comes into play.
 The PVGIS API provides a simple API endpoint which you can get the same values via JSON.
 The API and source code is freely available to use under the [MIT license](https://github.com/nagilum/pvgisjson/blob/master/LICENSE.md).
 
-See <pvgisjson.com> for details on how to use the API.
+See [pvgisjson.com](https://pvgisjson.com) for details on how to use the API.
