@@ -1,3 +1,6 @@
 [submodule "pvgisjsonapi/float"]
 	path = pvgisjsonapi/float
 	url = https://github.com/nagilum/float
+[submodule "pvgisjsonapi/gamp"]
+	path = pvgisjsonapi/gamp
+	url = https://github.com/nagilum/gamp
