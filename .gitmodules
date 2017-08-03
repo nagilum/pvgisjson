@@ -4,3 +4,6 @@
 [submodule "pvgisjsonapi/gamp"]
 	path = pvgisjsonapi/gamp
 	url = https://github.com/nagilum/gamp
+[submodule "miniserve-webpage/source/js/libs/jk"]
+	path = miniserve-webpage/source/js/libs/jk
+	url = https://github.com/nagilum/jk

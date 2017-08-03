@@ -11,12 +11,39 @@
       ]
     },
     {
-      "tagName": "html",
+      "tagName": "js",
+      "type": "js",
+      "minify": true,
+      "sourceFiles": [
+        "source/js/libs/jk/jk.js",
+        "source/js/app.js"
+      ]
+    },
+    {
       "type": "html",
+      "minify": true,
       "sourceFiles": [
         "source/html/index.html"
       ],
       "destFile": "build/index.html",
+      "parseTags": true
+    },
+    {
+      "type": "html",
+      "minify": true,
+      "sourceFiles": [
+        "source/html/documentation.html"
+      ],
+      "destFile": "build/documentation.html",
+      "parseTags": true
+    },
+    {
+      "type": "html",
+      "minify": true,
+      "sourceFiles": [
+        "source/html/playground.html"
+      ],
+      "destFile": "build/playground.html",
       "parseTags": true
     }
   ]

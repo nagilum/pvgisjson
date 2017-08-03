@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="PVGIS, API, Photovoltaic, Geographical, Information, System">
+        <meta name="description" content="API for Photovoltaic Geographical Information System (PVGIS)">
+        <meta name="author" content="Stian Hanger">
+        <title>PVGIS API</title>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed|Roboto+Mono|Alegreya:700">
+        <meta property="og:title" content="PVGIS API">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="PVGIS API">
+        <meta property="og:url" content="https://pvgisjson.com/">
+        {{ css }}
+    </head>
+    <body>
+        <header>
+            <wrapper>
+                <left>
+                    PVGIS API
+                </left>
+                <right>
+                    <a href="/">Home</a>
+                    <a href="/documentation.html">Documentation</a>
+                    <a href="/playground.html">Playground</a>
+                </right>
+            </wrapper>
+        </header>
+        <article>
+            <h1>API Documentation</h1>
+
+            <p>
+                There are two ways to use the API, either with a <mono>GET</mono> request, sending the needed parameters as a query string, or a <mono>POST</mono> request, sending the needed parameters as a JSON payload.
+            </p>
+
+            <p>
+                The API endpoint for both <mono>GET</mono> and <mono>POST</mono> is <mono>https://pvgisjson.com/api/v1/pv</mono>
+            </p>
+
+            <p>
+                There are a total of eight parameters you can include in the request, two of which are required, <mono>lat</mono> and <mono>lng</mono>.
+            </p>
+
+            <!-- lat -->
+
+            <h3>Latitude</h3>
+
+            <ul>
+                <li>Parameter: <mono>lat</mono></li>
+                <li>Type: decimal</li>
+                <li>Required: yes</li>
+            </ul>
+
+            <p>
+                The latitude of the location to fetch data for.
+            </p>
+
+            <!-- lng -->
+
+            <h3>Longitude</h3>
+
+            <ul>
+                <li>Parameter: <mono>lng</mono></li>
+                <li>Type: decimal</li>
+                <li>Required: yes</li>
+            </ul>
+
+            <p>
+                The longitude of the location to fetch data for.
+            </p>
+
+            <!-- pvtech -->
+
+            <h3>PV Technology</h3>
+
+            <ul>
+                <li>Parameter: <mono>pvtech</mono></li>
+                <li>Possible Values: <mono>crystSi</mono> , <mono>CIS</mono> , <mono>CdTe</mono></li>
+                <li>Type: string</li>
+                <li>Case Sensitive: no</li>
+                <li>Default Value: <mono>crystSi</mono></li>
+                <li>Required: no</li>
+            </ul>
+
+            <p>
+                The performance of PV modules depends on the temperature and on the solar irradiance, but the exact dependence varies between different types of PV modules. At the moment we can estimate the losses due to temperature and irradiance effects for the following types of modules: crystalline silicon cells; thin film modules made from CIS or CIGS and thin film modules made from Cadmium Telluride (CdTe).
+            </p>
+
+            <!-- peakpower -->
+
+            <h3>Installed peak power</h3>
+
+            <ul>
+                <li>Parameter: <mono>peakpower</mono></li>
+                <li>Type: decimal</li>
+                <li>Default Value: <mono>1</mono></li>
+                <li>Required: no</li>
+            </ul>
+
+            <p>
+                This is the power that the manufacturer declares that the PV array can produce under standard test conditions, which are a constant 1000W of solar irradiation per square meter in the plane of the array, at an array temperature of 25°C.
+            </p>
+
+            <!-- losses -->
+
+            <h3>System loss</h3>
+
+            <ul>
+                <li>Parameter: <mono>losses</mono></li>
+                <li>Range: 0;100</li>
+                <li>Type: decimal</li>
+                <li>Default Value: <mono>14</mono></li>
+                <li>Required: no</li>
+            </ul>
+
+            <p>
+                The estimated system losses are all the losses in the system, which cause the power actually delivered to the electricity grid to be lower than the power produced by the PV modules.
+            </p>
+
+            <!-- mounting -->
+
+            <h3>Mounting position</h3>
+
+            <ul>
+                <li>Parameter: <mono>mounting</mono></li>
+                <li>Possible Values: <mono>free</mono> , <mono>building</mono></li>
+                <li>Type: string</li>
+                <li>Case Sensitive: no</li>
+                <li>Default Value: <mono>free</mono></li>
+                <li>Required: no</li>
+            </ul>
+
+            <p>
+                For fixed (non-tracking) systems, the way the modules are mounted will have an influence on the temperature of the module, which in turn affects the efficiency.
+            </p>
+
+            <p>
+                In the application there are two possibilities: <italic>free-standing</italic>, meaning that the modules are mounted on a rack with air flowing freely behind the modules; and <italic>building-integrated</italic>, which means that the modules are completely built into the structure of the wall or roof of a building, with no air movement behind the modules.
+            </p>
+
+            <!-- slope -->
+
+            <h3>Slope</h3>
+
+            <ul>
+                <li>Parameter: <mono>slope</mono></li>
+                <li>Range: 0;90</li>
+                <li>Type: decimal</li>
+                <li>Default Value: <mono>35</mono></li>
+                <li>Required: no</li>
+            </ul>
+
+            <p>
+                This is the angle of the PV modules from the horizontal plane, for a fixed (non-tracking) mounting.
+            </p>
+
+            <!-- azimuth -->
+
+            <h3>Azimuth</h3>
+
+            <ul>
+                <li>Parameter: <mono>azimuth</mono></li>
+                <li>Range: -180;180</li>
+                <li>Type: decimal</li>
+                <li>Default Value: <mono>0</mono></li>
+                <li>Required: no</li>
+            </ul>
+
+            <p>
+                The azimuth, or orientation, is the angle of the PV modules relative to the direction due South. -90° is East, 0° is South and 90° is West.
+            </p>
+
+            <!-- Response -->
+
+            <h2>JSON Response</h2>
+
+            <p>
+                <a href="https://pvgisjson.com/api/v1/pv?lat=63.3622086&lng=10.3907399">Click here</a> to see the JSON response from a <mono>GET</mono> request with the <mono>lat</mono> set to <mono>63.3622086</mono> and <mono>lng</mono> set to <mono>10.3907399</mono>.
+            </p>
+        </article>
+        <footer>
+            <p>
+                &copy; 2017 Stian Hanger, source code available over at <a href="https://github.com/nagilum/pvgisjson">https://github.com/nagilum/pvgisjson</a>
+            </p>
+        </footer>
+
+        {{ js }}
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-103855040-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>

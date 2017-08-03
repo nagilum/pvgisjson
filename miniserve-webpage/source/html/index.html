@@ -7,7 +7,7 @@
         <meta name="description" content="API for Photovoltaic Geographical Information System (PVGIS)">
         <meta name="author" content="Stian Hanger">
         <title>PVGIS API</title>
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300|PT+Mono">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed|Roboto+Mono|Alegreya:700">
         <meta property="og:title" content="PVGIS API">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="PVGIS API">
@@ -16,163 +16,72 @@
     </head>
     <body>
         <header>
-            <h1>PVGIS API</h1>
+            <wrapper>
+                <left>
+                    PVGIS API
+                </left>
+                <right>
+                    <a href="/">Home</a>
+                    <a href="/documentation.html">Documentation</a>
+                    <a href="/playground.html">Playground</a>
+                </right>
+            </wrapper>
         </header>
         <article>
-            <h2>Photovoltaic Geographical Information System (PVGIS) API</h2>
+            <h1>PVGIS API</h1>
 
             <p>
-                Solar energy is one of the environmentally sustainable resources for producing electricity using photovoltaic (PV) systems.
-                The main input data used in the planning process is solar radiation.
-                The <a href="http://re.jrc.ec.europa.eu/pvgis/">Europe JRC</a> has an <a href="http://re.jrc.ec.europa.eu/pvgis/apps4/pvest.php">app</a> online which you can use to calculate PV values, bus sadly they have no (good) API.
-                That's where this website comes into play.
+                API to get solar irradiation data from the <a href="http://re.jrc.ec.europa.eu/pvgis/">Europe JRC</a> Photovoltaic Geographical Information System (PVGIS) service.
             </p>
 
             <p>
-                The PVGIS API provides a simple API endpoint which you can get the same values via JSON.
-                The API and source code is freely available to use under the <a href="https://github.com/nagilum/pvgisjson/blob/master/LICENSE.md">MIT license</a>.
+                Solar energy is one of the environmentally sustainable resources for producing electricity using photovoltaic (PV) systems. The main input data used in the planning process is solar radiation. The <a href="http://re.jrc.ec.europa.eu/pvgis/">Europe JRC</a> has an <a href="http://re.jrc.ec.europa.eu/pvgis/apps4/pvest.php">app</a> online which you can use to calculate PV values, bus sadly they have no (good) API. That's where this website comes into play.
             </p>
 
+            <p>
+                The PVGIS API provides a simple API endpoint which you can get the same values via JSON. The API and <a href="https://github.com/nagilum/pvgisjson">source code</a> is freely available to use under the <a href="https://github.com/nagilum/pvgisjson/blob/master/LICENSE.md">MIT license</a>.
+            </p>
+
+            <!--
             <h2>How to use</h2>
 
             <p>
-                Do a POST request to <a href="https://pvgisjson.com/api/v1/pv" class="italic">https://pvgisjson.com/api/v1/pv</a>.
+                You can use the API in two ways, either with a GET request using query-string parameters to send needed values, or a POST request sending the needed values as a JSON payload.
             </p>
 
-            <pre>POST https://pvgisjson.com/api/v1/pv</pre>
-
             <p>
-                Include the following JSON payload (lat and lng) as a minimum:
+                There are eight parameters in total, two of which are required:
             </p>
 
-            <pre>{
-    "lat": 63.3622086,
-    "lng": 10.3907399
-}</pre>
+            <h3>Latitude</h3>
 
             <p>
-                And you will get a response like this:
+                The latitude of the location to fetch data for.
             </p>
 
-            <pre>{
-    "message": "Ok",
-    "data": {
-        "Latitude": 63.3622086,
-        "Longitude": 10.3907399,
-        "Options": {
-            "PVTechnology": 0,
-            "InstalledPeakPVPower": 1,
-            "EstimatedSystemLosses": 14,
-            "MountingPosition": 0,
-            "Slope": 35,
-            "Azimuth": 0
-        },
-        "Values": {
-            "MonthlyAverage": {
-                "Jan": {
-                    "Ed": 0.42,
-                    "Em": 13.1,
-                    "Hd": 0.49,
-                    "Hm": 15.2
-                },
-                "Feb": {
-                    "Ed": 1.35,
-                    "Em": 37.8,
-                    "Hd": 1.59,
-                    "Hm": 44.6
-                },
-                "Mar": {
-                    "Ed": 2.39,
-                    "Em": 74.1,
-                    "Hd": 2.93,
-                    "Hm": 90.9
-                },
-                "Apr": {
-                    "Ed": 3.31,
-                    "Em": 99.4,
-                    "Hd": 4.22,
-                    "Hm": 127
-                },
-                "May": {
-                    "Ed": 3.83,
-                    "Em": 119,
-                    "Hd": 5.04,
-                    "Hm": 156
-                },
-                "Jun": {
-                    "Ed": 3.99,
-                    "Em": 120,
-                    "Hd": 5.35,
-                    "Hm": 161
-                },
-                "Jul": {
-                    "Ed": 3.59,
-                    "Em": 111,
-                    "Hd": 4.86,
-                    "Hm": 151
-                },
-                "Aug": {
-                    "Ed": 2.95,
-                    "Em": 91.4,
-                    "Hd": 3.95,
-                    "Hm": 122
-                },
-                "Sep": {
-                    "Ed": 2.09,
-                    "Em": 62.7,
-                    "Hd": 2.68,
-                    "Hm": 80.4
-                },
-                "Oct": {
-                    "Ed": 1.24,
-                    "Em": 38.5,
-                    "Hd": 1.53,
-                    "Hm": 47.3
-                },
-                "Nov": {
-                    "Ed": 0.59,
-                    "Em": 17.6,
-                    "Hd": 0.7,
-                    "Hm": 21
-                },
-                "Dec": {
-                    "Ed": 0.19,
-                    "Em": 5.95,
-                    "Hd": 0.23,
-                    "Hm": 7.19
-                }
-            },
-            "YearlyAverage": {
-                "Ed": 2.17,
-                "Em": 65.9,
-                "Hd": 2.8,
-                "Hm": 85.3
-            },
-            "YearlyTotal": {
-                "E": 790,
-                "H": 1020
-            }
-        }
-    }
-}</pre>
+            <p>
+                The name of this parameter is "lat" and is required.
+            </p>
 
-            <h2>Customize</h2>
+            <h3>Longitude</h3>
 
             <p>
-                Here are a list of all 8 attributes you can include in the API request.
+                The longitude of the location to fetch data for.
+            </p>
+
+            <p>
+                The name of this parameter is "lng" and is required.
             </p>
 
             <h3>PV Technology</h3>
-            
+
             <p>
                 The performance of PV modules depends on the temperature and on the solar irradiance, but the exact dependence varies between different types of PV modules.
             </p>
 
-            <pre>{
-    /* You can either use "crystSi", "CIS", or "CdTe" and the "pvtech" value. */
-    /* The default value is "crystSi".
-    "pvtech": "crystSi"
-}</pre>
+            <p>
+                The name of this parameter is "pvtech".
+            </p>
 
             <h3>Installed peak power</h3>
 
@@ -180,10 +89,9 @@
                 This is the power that the manufacturer declares that the PV array can produce under standard test conditions, which are a constant 1000W of solar irradiation per square meter in the plane of the array, at an array temperature of 25°C.
             </p>
 
-            <pre>{
-    /* The default value is 1. */
-    "peakpower": 1
-}</pre>
+            <p>
+                The name of this parameter is "pvtech".
+            </p>
 
             <h3>System loss</h3>
 
@@ -191,10 +99,9 @@
                 The estimated system losses are all the losses in the system, which cause the power actually delivered to the electricity grid to be lower than the power produced by the PV modules.
             </p>
 
-            <pre>{
-    /* The default value is 14. */
-    "losses": 14
-}</pre>
+            <p>
+                The name of this parameter is "pvtech".
+            </p>
 
             <h3>Mounting position</h3>
 
@@ -202,11 +109,9 @@
                 For fixed (non-tracking) systems, the way the modules are mounted will have an influence on the temperature of the module, which in turn affects the efficiency.
             </p>
 
-            <pre>{
-    /* You can either use "free" or "building". */
-    /* The default value is "free". */
-    "mounting": "free"
-}</pre>
+            <p>
+                The name of this parameter is "pvtech".
+            </p>
 
             <h3>Slope</h3>
 
@@ -214,10 +119,9 @@
                 This is the angle of the PV modules from the horizontal plane, for a fixed (non-tracking) mounting.
             </p>
 
-            <pre>{
-    /* The default value is 35 */
-    "slope": 35
-}</pre>
+            <p>
+                The name of this parameter is "pvtech".
+            </p>
 
             <h3>Azimuth</h3>
 
@@ -225,15 +129,20 @@
                 The azimuth, or orientation, is the angle of the PV modules relative to the direction due South. -90° is East, 0° is South and 90° is West.
             </p>
 
-            <pre>{
-    /* The default value is 0. */
-    "azimuth": 0
-}</pre>
+            <p>
+                The name of this parameter is "pvtech".
+            </p>
+
+            <h2>Playground</h2>
+            -->
         </article>
         <footer>
-            &copy; 2017 Stian Hanger.
-            Source code available over at <a href="https://github.com/nagilum/pvgisjson">https://github.com/nagilum/pvgisjson</a>.
+            <p>
+                &copy; 2017 Stian Hanger, source code available over at <a href="https://github.com/nagilum/pvgisjson">https://github.com/nagilum/pvgisjson</a>
+            </p>
         </footer>
+
+        {{ js }}
 
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

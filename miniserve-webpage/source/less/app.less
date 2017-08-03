@@ -5,10 +5,10 @@
 body {
     background-color: #fff;
     color: #000;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 18px;
+    line-height: 23px;
     margin: 0;
     padding: 0;
 
@@ -26,92 +26,114 @@ body {
     }
 
     header {
-        background-color: #24292e;
+        background-color: #000;
+        height: 50px;
+        margin: 0;
+        padding: 0;
 
-        h1 {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
+        wrapper {
+            display: block;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 0;
             width: 980px;
+
+            left {
+                color: #fff;
+                display: block;
+                float: left;
+                font-weight: 700;
+                letter-spacing: 1px;
+                padding: 14px 0 0;
+                text-transform: uppercase;
+            }
+
+            right {
+                display: block;
+                float: right;
+
+                a {
+                    color: #0396f6;
+                    display: inline-block;
+                    font-weight: 700;
+                    height: 50px;
+                    margin-left: 20px;
+                    padding: 14px 0 0;
+                    text-transform: uppercase;
+                }
+            }
         }
     }
 
     article {
-        margin: 0 auto 50px;
+        margin: 0 auto;
         width: 980px;
 
-        h2 {
-            font-family: 'Open Sans Condensed', sans-serif;
-            font-size: 40px;
-            font-weight: 300;
-            line-height: 40px;
-            margin: 40px 0 25px;
+        h1 {
+            font-family: 'Alegreya', serif;
+            font-size: 46px;
+            font-weight: 700;
+            line-height: 46px;
+            margin: 30px 0;
             padding: 0;
+        }
+
+        h2 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 23px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            line-height: 25px;
+            margin: 0 0 25px;
+            padding: 10px 0 0;
+            text-transform: uppercase;
         }
 
         h3 {
-            font-family: 'Open Sans Condensed', sans-serif;
-            font-size: 25px;
-            font-weight: 300;
-            margin: 25px 0;
-            padding: 0;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            line-height: 20px;
+            margin: 0 0 20px;
+            padding: 10px 0 0;
+            text-transform: uppercase;
+        }
+
+        italic {
+            font-style: italic;
+        }
+
+        mono {
+            background-color: #eee;
+            display: inline-block;
+            font-family: 'Roboto Mono', monospace;
+            padding: 0 5px;
         }
 
         p {
-            margin: 0 0 20px 0;
+            margin: 0 0 23px;
             padding: 0;
         }
 
         pre {
-            background-color: #fafbfc;
-            border: solid 1px #dadcdf;
+            background-color: #eee;
+            border: solid 1px #ccc;
             border-radius: 3px;
-            font-family: 'PT Mono', monospace;
-            font-size: 14px;
-            font-weight: 400;
-            margin: 0 0 20px 0;
-            padding: 15px;
+            font-family: 'Roboto Mono', monospace;
+            padding: 5px;
         }
     }
 
     footer {
-        border-top: solid 1px #eaecef;
-        margin: 50px auto 0;
+        border-top: solid 1px #ddd;
+        margin: 100px auto 0;
         padding: 20px 0;
         width: 980px;
-    }
-}
 
-@media (max-width: 1024px) {
-    body {
-        header {
-            h1 {
-                padding-left: 10px;
-                padding-right: 10px;
-                width: 100%;
-            }
-        }
-
-        article {
-            padding-left: 10px;
-            padding-right: 10px;
-            width: 100%;
-
-            h2 {
-                margin: 20px 0;
-            }
-
-            pre {
-                overflow: scroll;
-            }
-        }
-
-        footer {
-            padding-left: 10px;
-            padding-right: 10px;
-            width: 100%;
+        p {
+            font-size: 13px;
+            margin: 0;
+            padding: 0;
         }
     }
 }
