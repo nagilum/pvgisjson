@@ -6,12 +6,12 @@
         <meta name="keywords" content="PVGIS, API, Photovoltaic, Geographical, Information, System">
         <meta name="description" content="API for Photovoltaic Geographical Information System (PVGIS)">
         <meta name="author" content="Stian Hanger">
-        <title>PVGIS API</title>
+        <title>Playground &raquo; PVGIS API</title>
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed|Roboto+Mono|Alegreya:700">
-        <meta property="og:title" content="PVGIS API">
+        <meta property="og:title" content="Playground &raquo; PVGIS API">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="PVGIS API">
-        <meta property="og:url" content="https://pvgisjson.com/">
+        <meta property="og:url" content="https://pvgisjson.com/playground.html">
         {{ css }}
     </head>
     <body>
@@ -29,6 +29,163 @@
         </header>
         <article>
             <h1>API Playground</h1>
+
+            <h2>Settings</h2>
+
+            <box>
+                <row>
+                    <cell class="half">
+
+                        <box>
+                            <!-- lat -->
+
+                            <row>
+                                <cell class="name">
+                                    Latitude
+                                </cell>
+                                <cell class="value">
+                                    <input type="number" id="lat" min="-90" max="90" step="0.01" value="63.3622086">
+                                </cell>
+                            </row>
+
+                            <!-- lng -->
+
+                            <row>
+                                <cell class="name">
+                                    Longitude
+                                </cell>
+                                <cell class="value">
+                                    <input type="number" id="lng" min="-180" max="180" step="0.01" value="10.3907399">
+                                </cell>
+                            </row>
+
+                            <!-- pvtech -->
+
+                            <row>
+                                <cell class="name">
+                                    PV Technology
+                                </cell>
+                                <cell class="value">
+                                    <select id="pvtech">
+                                        <option value="crystSi" selected>crystSi</option>
+                                        <option value="CIS">CIS</option>
+                                        <option value="CdTe">CdTe</option>
+                                    </select>
+                                </cell>
+                            </row>
+
+                            <!-- peakpower -->
+
+                            <row>
+                                <cell class="name">
+                                    Installed peak power
+                                </cell>
+                                <cell class="value">
+                                    <input type="number" id="peakpower" min="1" step="0.1" value="1">
+                                </cell>
+                            </row>
+                        </box>
+                        
+                    </cell>
+                    <cell class="half">
+
+                        <box>
+
+                            <!-- losses -->
+
+                            <row>
+                                <cell class="name">
+                                    System loss
+                                </cell>
+                                <cell class="value">
+                                    <input type="number" id="losses" min="0" max="100" step="0.1" value="14">
+                                </cell>
+                            </row>
+
+                            <!-- mounting -->
+
+                            <row>
+                                <cell class="name">
+                                    Mounting position
+                                </cell>
+                                <cell class="value">
+                                    <select id="mounting">
+                                        <option value="free" selected>free</option>
+                                        <option value="building">building</option>
+                                    </select>
+                                </cell>
+                            </row>
+
+                            <!-- slope -->
+
+                            <row>
+                                <cell class="name">
+                                    Slope
+                                </cell>
+                                <cell class="value">
+                                    <input type="number" id="slope" min="0" max="90" step="0.1" value="35">
+                                </cell>
+                            </row>
+
+                            <!-- azimuth -->
+
+                            <row>
+                                <cell class="name">
+                                    Azimuth
+                                </cell>
+                                <cell class="value">
+                                    <input type="number" id="azimuth" min="-180" max="180" step="0.1" value="0">
+                                </cell>
+                            </row>
+                            
+                        </box>
+                    
+                    </cell>
+                </row>
+            </box>
+
+            <br>
+
+            <box>
+                <!-- method -->
+
+                <row>
+                    <cell class="name">
+                        Method
+                    </cell>
+                    <cell class="value">
+                        <select id="method">
+                            <option value="GET">GET</option>
+                            <option value="POST" selected>POST</option>
+                        </select>
+                    </cell>
+                </row>
+
+                <!-- fetch -->
+
+                <row>
+                    <cell class="name">
+                        &nbsp;
+                    </cell>
+                    <cell class="value">
+                        <input type="button" id="fetch" value="SEND">
+                    </cell>
+                </row>
+            </box>
+
+            <br>
+
+            <h3>URL</h3>
+
+            <pre id="url">&nbsp;</pre>
+
+            <h3>Payload</h3>
+
+            <pre id="payload">&nbsp;</pre>
+
+            <h3>Response</h3>
+
+            <pre id="response">&nbsp;</pre>
         </article>
         <footer>
             <p>

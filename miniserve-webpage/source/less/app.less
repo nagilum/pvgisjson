@@ -68,6 +68,58 @@ body {
         margin: 0 auto;
         width: 980px;
 
+        box {
+            display: block;
+            margin: 0;
+            overflow: auto;
+            padding: 0;
+
+            row {
+                clear: both;
+                display: block;
+                margin: 0;
+                min-height: 40px;
+                overflow: auto;
+                padding: 0;
+                width: 100%;
+
+                cell {
+                    display: block;
+                    float: left;
+                    margin: 0;
+                    overflow: auto;
+                    padding: 0;
+
+                    &.half {
+                        width: 49%;
+                    }
+
+                    &.name {
+                        padding-top: 5px;
+                        width: 200px;
+                    }
+
+                    &.value {
+                        input[type=number] {
+                            margin: 0;
+                            padding: 5px;
+                            width: 200px;
+                        }
+
+                        input[type=button] {
+                            padding: 10px;
+                        }
+
+                        select {
+                            margin: 0;
+                            padding: 5px;
+                            width: 200px;
+                        }
+                    }
+                }
+            }
+        }
+
         h1 {
             font-family: 'Alegreya', serif;
             font-size: 46px;
@@ -120,7 +172,15 @@ body {
             border: solid 1px #ccc;
             border-radius: 3px;
             font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            hyphens: auto;
+            overflow-wrap: break-word;
             padding: 5px;
+            word-break: break-all;
+
+            &.italic {
+                font-style: italic;
+            }
         }
     }
 
