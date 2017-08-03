@@ -177,6 +177,7 @@ namespace pvgisjsonapi {
             var key = JsonConvert.SerializeObject(pv);
 
             return Cacher.Get(key, () => {
+                /*
                 var options = new PVGIS.Options();
 
                 // PVTechnology
@@ -217,13 +218,18 @@ namespace pvgisjsonapi {
                 if (pv.azimuth.HasValue) {
                     options.Azimuth = pv.azimuth.Value;
                 }
+                */
 
                 // Query PVGIS.
                 try {
+                    /*
                     var task = PVGIS.GetAsync(
                         pv.lat,
                         pv.lng,
                         options);
+                    */
+
+                    var task = PVGIS.GetAsync(pv);
 
                     task.Wait(10 * 1000);
 

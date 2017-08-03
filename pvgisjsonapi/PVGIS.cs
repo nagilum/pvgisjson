@@ -12,40 +12,69 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using pvgisjsonapi;
 
 public class PVGIS {
     /// <summary>
     /// Get PV values from the PVGIS database.
     /// </summary>
-    /// <param name="latitude">Latitude position.</param>
-    /// <param name="longitude">Longitude position.</param>
-    /// <param name="options">Options for the webcall.</param>
+    /// <param name="pv">Input parameters from the client.</param>
     /// <returns>Full collection of position, options, and parsed values.</returns>
-    public static async Task<Response> GetAsync(double latitude, double longitude, Options options = null) {
+    public static async Task<Response> GetAsync(API.PostValues pv) {
         var culture = new CultureInfo("en-US");
 
         // Set default values if none are given.
-        if (options == null) {
-            options = new Options();
+        if (pv == null) {
+            throw new MissingMemberException("pv is missing.");
+        }
+
+        // pvtech
+        if (string.IsNullOrWhiteSpace(pv.pvtech)) {
+            pv.pvtech = "crystSi";
+        }
+
+        // peakpower
+        if (!pv.peakpower.HasValue) {
+            pv.peakpower = 1;
+        }
+
+        // losses
+        if (!pv.losses.HasValue) {
+            pv.losses = 14;
+        }
+
+        // mounting
+        if (string.IsNullOrWhiteSpace(pv.mounting)) {
+            pv.mounting = "free";
+        }
+
+        // slope
+        if (!pv.slope.HasValue) {
+            pv.slope = 35;
+        }
+
+        // azimuth
+        if (!pv.azimuth.HasValue) {
+            pv.azimuth = 0;
         }
 
         // Compile postback dictionary for webcall.
         var dict = new Dictionary<string, string> {
             {"MAX_FILE_SIZE", "10000"},
             {"pv_database", "PVGIS-classic"},
-            {"pvtechchoice", options.GetPVTechnology()},
-            {"peakpower", options.InstalledPeakPVPower.ToString(culture)},
-            {"efficiency", options.EstimatedSystemLosses.ToString(culture)},
-            {"mountingplace", options.GetMountingPosition()},
-            {"angle", options.Slope.ToString(culture)},
-            {"aspectangle", options.Azimuth.ToString(culture)},
+            {"pvtechchoice", pv.pvtech},
+            {"peakpower", pv.peakpower.Value.ToString(culture)},
+            {"efficiency", pv.losses.Value.ToString(culture)},
+            {"mountingplace", pv.mounting},
+            {"angle", pv.slope.Value.ToString(culture)},
+            {"aspectangle", pv.azimuth.Value.ToString(culture)},
             {"horizonfile", ""},
             {"outputchoicebuttons", "window"},
             {"sbutton", "Calculate"},
             {"outputformatchoice", "window"},
             {"optimalchoice", ""},
-            {"latitude", latitude.ToString(culture)},
-            {"longitude", longitude.ToString(culture)},
+            {"latitude", pv.lat.ToString(culture)},
+            {"longitude", pv.lng.ToString(culture)},
             {"regionname", "europe"},
             {"language", "en_en"}
         };
@@ -67,9 +96,7 @@ public class PVGIS {
 
         // Output to user.
         return new Response(
-            latitude,
-            longitude,
-            options,
+            pv,
             values);
     }
 
@@ -205,7 +232,7 @@ public class PVGIS {
     /// <returns>Parsed values.</returns>
     private static ParsedValues ScrapeHTMLAndParseValues(string html) {
         return new ParsedValues {
-            MonthlyAverage = new Dictionary<string, ParsedValues.Monthly> {
+            monthlyAverage = new Dictionary<string, ParsedValues.Monthly> {
                 {"Jan", GetMonthlyRowFromHTML(ref html, "Jan")},
                 {"Feb", GetMonthlyRowFromHTML(ref html, "Feb")},
                 {"Mar", GetMonthlyRowFromHTML(ref html, "Mar")},
@@ -219,8 +246,8 @@ public class PVGIS {
                 {"Nov", GetMonthlyRowFromHTML(ref html, "Nov")},
                 {"Dec", GetMonthlyRowFromHTML(ref html, "Dec")},
             },
-            YearlyAverage = GetMonthlyRowFromHTML(ref html, "Yearly average"),
-            YearlyTotal = GetYearlyRowFromHTML(ref html, "Total for year")
+            yearlyAverage = GetMonthlyRowFromHTML(ref html, "Yearly average"),
+            yearlyTotal = GetYearlyRowFromHTML(ref html, "Total for year")
         };
     }
 
@@ -349,39 +376,22 @@ public class PVGIS {
         /// <summary>
         /// Create a new response collection.
         /// </summary>
-        /// <param name="latitude">Latitude position.</param>
-        /// <param name="longitude">Longitude position.</param>
-        /// <param name="options">Options for the webcall.</param>
-        /// <param name="values">Parsed values from the webcall.</param>
-        public Response(double latitude,
-                        double longitude,
-                        Options options,
-                        ParsedValues values) {
-            this.Latitude = latitude;
-            this.Longitude = longitude;
-            this.Options = options;
-            this.Values = values;
+        /// <param name="input">The input parameters from the client.</param>
+        /// <param name="output">Scraped and parsed values from the website.</param>
+        public Response(API.PostValues input, ParsedValues output) {
+            this.input = input;
+            this.output = output;
         }
 
         /// <summary>
-        /// Latitude position.
+        /// The input parameters from the client.
         /// </summary>
-        public double Latitude { get; }
-
-        /// <summary>
-        /// Longitude position.
-        /// </summary>
-        public double Longitude { get; }
-
-        /// <summary>
-        /// Given, or default, options from the call.
-        /// </summary>
-        public Options Options { get; }
+        public API.PostValues input { get; set; }
 
         /// <summary>
         /// Scraped and parsed values from the website.
         /// </summary>
-        public ParsedValues Values { get; }
+        public ParsedValues output { get; }
     }
 
     /// <summary>
@@ -391,17 +401,17 @@ public class PVGIS {
         /// <summary>
         /// Average pr month.
         /// </summary>
-        public Dictionary<string, Monthly> MonthlyAverage { get;set; }
+        public Dictionary<string, Monthly> monthlyAverage { get;set; }
 
         /// <summary>
         /// Average for entire year.
         /// </summary>
-        public Monthly YearlyAverage { get; set; }
+        public Monthly yearlyAverage { get; set; }
 
         /// <summary>
         /// Total for entire year.
         /// </summary>
-        public Yearly YearlyTotal { get; set; }
+        public Yearly yearlyTotal { get; set; }
 
         public class Monthly {
             public decimal Ed { get; set; }
