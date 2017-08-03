@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace pvgisjsonapi {
         /// <summary>
         /// Get PV values for given location.
         /// </summary>
-        public static PostResponse GetPVValueByGet(FloatRouteContext ctx) {
+        public static FloatRouteResponse GetPVValueByGet(FloatRouteContext ctx) {
             var culture = new CultureInfo("en-US");
 
             double lat;
@@ -78,10 +79,14 @@ namespace pvgisjsonapi {
             postTrackingToGA(ctx);
 
             if (data != null) {
-                return new PostResponse {
-                    message = "Ok",
-                    data = data
-                };
+                return new FloatRouteJsonResponse(
+                    new PostResponse {
+                        message = "Ok",
+                        data = data
+                    },
+                    new Dictionary<string, string> {
+                        {"Access-Control-Allow-Origin", "*"}
+                    });
             }
 
             throw new FloatRouteException(
@@ -94,7 +99,7 @@ namespace pvgisjsonapi {
         /// <summary>
         /// Get PV values for given location.
         /// </summary>
-        public static PostResponse GetPVValueByPost(FloatRouteContext ctx) {
+        public static FloatRouteResponse GetPVValueByPost(FloatRouteContext ctx) {
             PostValues pv;
 
             try {
@@ -123,10 +128,14 @@ namespace pvgisjsonapi {
             postTrackingToGA(ctx);
 
             if (data != null) {
-                return new PostResponse {
-                    message = "Ok",
-                    data = data
-                };
+                return new FloatRouteJsonResponse(
+                    new PostResponse {
+                        message = "Ok",
+                        data = data
+                    },
+                    new Dictionary<string, string> {
+                        {"Access-Control-Allow-Origin", "*"}
+                    });
             }
 
             throw new FloatRouteException(
