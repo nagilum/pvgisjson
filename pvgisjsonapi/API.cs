@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using Float;
 using Newtonsoft.Json;
 
@@ -62,6 +63,7 @@ namespace pvgisjsonapi {
                 }
             }
 
+            // Compile the values and get from cache or website.
             var data = compileRequest(
                 lat,
                 lng,
@@ -71,6 +73,9 @@ namespace pvgisjsonapi {
                 ctx.Request.Query.ContainsKey("mounting") ? ctx.Request.Query["mounting"].ToString() : null,
                 slope,
                 azimuth);
+
+            // Post the API request to GA.
+            postTrackingToGA(ctx);
 
             if (data != null) {
                 return new PostResponse {
@@ -103,6 +108,7 @@ namespace pvgisjsonapi {
                     });
             }
 
+            // Compile the values and get from cache or website.
             var data = compileRequest(
                 pv.lat,
                 pv.lng,
@@ -112,6 +118,9 @@ namespace pvgisjsonapi {
                 pv.mounting,
                 pv.slope,
                 pv.azimuth);
+
+            // Post the API request to GA.
+            postTrackingToGA(ctx);
 
             if (data != null) {
                 return new PostResponse {
@@ -223,6 +232,19 @@ namespace pvgisjsonapi {
                 catch {
                     return null;
                 }
+            });
+        }
+
+        /// <summary>
+        /// Post the API request to GA.
+        /// </summary>
+        private static void postTrackingToGA(FloatRouteContext ctx) {
+            Task.Run(() => {
+                GAMP.PostSingle(
+                    ctx.Request,
+                    new GAMP.Options {
+                        TrackingID = "UA-103855040-1"
+                    });
             });
         }
 
