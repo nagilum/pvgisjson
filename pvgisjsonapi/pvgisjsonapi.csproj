@@ -18,4 +18,10 @@
   <ItemGroup>
     <None Include="index.html" CopyToPublishDirectory="Always" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="documentation.html" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="playground.html" CopyToPublishDirectory="Always" />
+  </ItemGroup>
 </Project>
