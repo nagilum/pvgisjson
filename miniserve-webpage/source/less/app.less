@@ -197,3 +197,64 @@ body {
         }
     }
 }
+
+@media (max-width: 1024px) {
+    body {
+        header {
+            wrapper {
+                padding: 0 10px;
+                width: 100%;
+            }
+        }
+
+        article {
+            padding: 0 10px;
+            width: 100%;
+        }
+
+        footer {
+            padding: 20px 10px;
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        header {
+            wrapper {
+                left {
+                    display: none;
+                }
+            }
+        }
+
+        article {
+            box {
+                row {
+                    cell {
+                        &.half {
+                            width: 100%;
+                        }
+
+                        &.name {
+                            width: 100%;
+                        }
+
+                        &.value {
+                            width: 100%;
+
+                            input[type=number] {
+                                width: 100%;
+                            }
+
+                            select {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
