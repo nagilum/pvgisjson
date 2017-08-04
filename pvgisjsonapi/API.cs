@@ -148,11 +148,53 @@ namespace pvgisjsonapi {
         /// <summary>
         /// Serve the front page.
         /// </summary>
-        public static FloatRouteResponse ServeFrontpage(FloatRouteContext ctx) {
-            var html = Cacher.Get("Frontpage", () => {
+        public static FloatRouteResponse ServePageHome(FloatRouteContext ctx) {
+            var html = Cacher.Get("ServePageHome", () => {
                 var file = Path.Combine(
                     Directory.GetCurrentDirectory(),
                     "index.html");
+
+                return File.Exists(file)
+                    ? File.ReadAllText(file)
+                    : null;
+            });
+
+            if (string.IsNullOrWhiteSpace(html)) {
+                throw new FloatRouteException(404);
+            }
+
+            return new FloatRouteHtmlResponse(html);
+        }
+
+        /// <summary>
+        /// Serve the documentation page.
+        /// </summary>
+        public static FloatRouteResponse ServePageDocumentation(FloatRouteContext ctx) {
+            var html = Cacher.Get("ServePageDocumentation", () => {
+                var file = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "documentation.html");
+
+                return File.Exists(file)
+                    ? File.ReadAllText(file)
+                    : null;
+            });
+
+            if (string.IsNullOrWhiteSpace(html)) {
+                throw new FloatRouteException(404);
+            }
+
+            return new FloatRouteHtmlResponse(html);
+        }
+
+        /// <summary>
+        /// Serve the playground page.
+        /// </summary>
+        public static FloatRouteResponse ServePagePlayground(FloatRouteContext ctx) {
+            var html = Cacher.Get("ServePagePlayground", () => {
+                var file = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "playground.html");
 
                 return File.Exists(file)
                     ? File.ReadAllText(file)
