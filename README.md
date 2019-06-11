@@ -1,3 +1,9 @@
+# Obsolete!
+
+This repo is no longer the one used for <https://pvgisjson.com>
+
+The new repo can be found here: <https://github.com/nagilum/pvgis>
+
 # Photovoltaic Geographical Information System (PVGIS) API
 
 Solar energy is one of the environmentally sustainable resources for producing electricity using photovoltaic (PV) systems.
